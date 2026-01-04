@@ -1,0 +1,123 @@
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+int validasiNama(char nama[]) {
+    // Nama hanya boleh berisi huruf dan spasi
+    for(int i = 0; nama[i] != '\0'; i++) {  // Loop sampai akhir string
+        if(!isalpha(nama[i]) && nama[i] != ' ') {  // Cek jika bukan huruf atau spasi
+            return 0; // Tidak valid
+        }
+    }
+    return 1; // Valid
+}
+
+int validasiNIM(char nim[]) {  // NIM harus 10 digit angka
+    // NIM harus 10 digit angka
+    if(strlen(nim) != 10) {
+        return 0;
+    }
+    
+    for(int i = 0; nim[i] != '\0'; i++) {
+        if(!isdigit(nim[i])) {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+int validasiEmail(char email[]) {
+    // Email harus mengandung @ dan .
+    int ada_at = 0;
+    int ada_titik = 0;
+    
+    for(int i = 0; email[i] != '\0'; i++) {
+        if(email[i] == '@') ada_at = 1;
+        if(email[i] == '.') ada_titik = 1;
+    }
+    
+    return (ada_at && ada_titik);
+}
+
+int main() {
+    char nama[100], nim[20], email[100];
+    
+    // Input dan validasi NAMA
+    do {
+        printf("Masukkan nama (hanya huruf dan spasi): ");
+        fgets(nama, sizeof(nama), stdin);
+        nama[strcspn(nama, "\n")] = '\0';
+        
+        if(!validasiNama(nama)) {
+            printf("Error: Nama hanya boleh berisi huruf dan spasi!\n\n");
+        }
+    } while(!validasiNama(nama));
+    
+    // Input dan validasi NIM
+    do {
+        printf("Masukkan NIM (10 digit angka): ");
+        fgets(nim, sizeof(nim), stdin);
+        nim[strcspn(nim, "\n")] = '\0';
+        
+        if(!validasiNIM(nim)) {
+            printf("Error: NIM harus 10 digit angka!\n\n");
+        }
+    } while(!validasiNIM(nim));
+    
+    // Input dan validasi EMAIL
+    do {
+        printf("Masukkan email: ");
+        fgets(email, sizeof(email), stdin);
+        email[strcspn(email, "\n")] = '\0';
+        
+        if(!validasiEmail(email)) {
+            printf("Error: Email harus mengandung @ dan titik!\n\n");
+        }
+    } while(!validasiEmail(email));
+    
+    // Tampilkan hasil
+    printf("\n=== DATA VALID ===\n");
+    printf("Nama  : %s\n", nama);
+    printf("NIM   : %s\n", nim);
+    printf("Email : %s\n", email);
+    
+    return 0;
+}
+
+/*Contoh Output:
+Masukkan nama (hanya huruf dan spasi): John123
+Error: Nama hanya boleh berisi huruf dan spasi!
+Masukkan nama (hanya huruf dan spasi): John Doe
+Masukkan NIM (10 digit angka): 12345abcde
+Error: NIM harus 10 digit angka!
+Masukkan NIM (10 digit angka): 1234567890
+Masukkan email: johndoe.com
+Error: Email harus mengandung @ dan titik!
+Masukkan email: @addtogroup.com
+=== DATA VALID ===
+Nama  : John Doe
+NIM   : 1234567890
+Email : @addtogroup.com
+*/
+
+// Penjelasan tambahan:
+// - Program ini melakukan validasi input untuk nama, NIM, dan email.
+// - Fungsi validasiNama memastikan nama hanya berisi huruf dan spasi.
+// - Fungsi validasiNIM memastikan NIM adalah 10 digit angka.
+// - Fungsi validasiEmail memastikan email mengandung karakter '@' dan '.'.
+// - Input diambil menggunakan fgets untuk menghindari overflow buffer.
+// - Validasi dilakukan dalam loop do-while hingga input valid diberikan.
+// - Setelah semua input valid, data ditampilkan ke layar.
+// - Validasi input penting untuk memastikan data yang diproses oleh program
+//   sesuai dengan yang diharapkan dan menghindari error di kemudian hari.
+// - Program ini dapat dikembangkan lebih lanjut dengan menambahkan fitur
+//   seperti menyimpan data ke dalam file atau database.
+
+// Tips:
+// 1. Gunakan fungsi terpisah untuk
+//    validasi agar kode lebih rapi
+// 2. Gunakan isalpha dan isdigit dari ctype.h untuk cek karakter
+// 3. Gunakan fgets untuk input string agar aman
+// 4. Hapus newline dari fgets dengan strcspn
+// 5. Validasi input penting untuk program yang robust
+
