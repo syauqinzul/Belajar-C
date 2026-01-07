@@ -16,6 +16,7 @@ char h = 'A';           // 1 byte (-128 to 127)
 unsigned char i = 200;  // 1 byte (0 to 255)
 
 // 4. Tipe Data Boolean (di C99)
+// tipe data boolean adalah menjelaskan nilai benar/salah
 #include <stdbool.h>
 bool j = true;          // 1 byte (true=1, false=0)
 
